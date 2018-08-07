@@ -1,0 +1,29 @@
+{
+    "name": "takaworx/brix",
+    "description": "Additional laravel bootstrapping",
+    "type": "library",
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "~5.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "Takaworx\\Brix\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+              "Takaworx\\Brix\\BrixServiceProvider"
+            ]
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Neil",
+            "email": "neil@takaworx.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}

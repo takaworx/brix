@@ -1,0 +1,14 @@
+<?php
+
+namespace DummyNamespace;
+
+use DummyModel;
+use Takaworx\Brix\Repositories\Repository;
+
+class DummyClass extends Repository
+{
+    public function __construct()
+    {
+        parent::__construct(new DummyMC());
+    }
+}
