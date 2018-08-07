@@ -14,7 +14,7 @@ Additional bootstrapping solution for Laravel that adds Repositories, Api Handle
     }
 ],
 "require": {
-    "takaworx/brix": "dev-master"
+    "takaworx/brix": "0.1.0"
 }
 ```
 
