@@ -30,13 +30,25 @@ class Repository
     /**
      * Set the conditions for the query
      *
-     * @param array $conditions
+     * @param string|array $param1 - The field to be checked or an array of conditions
+     * @param string $param2 - The value to be checked against param1 or an operator
+     * @param string $param3 - The value to be checked against param1 according to the operator param2
      * @return self
      */
-    public function where($conditions)
+    public function where($param1, $param2=null, $param3=null)
     {
         try {
-            $this->query = $this->query->where($conditions);
+            if (! is_array($param1) && is_null($param2)) {
+                throw new \Exception("A value must be passed if first parameter is not an array!");
+            }
+
+            if (is_array($param1)) {
+                $this->query = $this->query->where($param1);
+            } elseif (is_null($param3)) {
+                $this->query = $this->query->where($param1, $param2);
+            } else {
+                $this->query = $this->query->where($param1, $param2, $param3);
+            }
         } catch (\Exception $e) {
             return ApiException::serverError($e->getMessage());
         }
@@ -53,10 +65,14 @@ class Repository
     public function find($id)
     {
         try {
-            return $this->query->find($id);
+            $result = $this->query->find($id);
         } catch (\Exception $e) {
             return ApiException::serverError($e->getMessage());
         }
+
+        $this->resetQuery();
+
+        return $result;
     }
 
     /**
@@ -67,10 +83,15 @@ class Repository
     public function first()
     {
         try {
-            return $this->query->first();
+            $result = $this->query->first();
         } catch (\Exception $e) {
+            return $e;
             return ApiException::serverError($e->getMessage());
         }
+
+        $this->resetQuery();
+
+        return $result;
     }
 
     /**
@@ -81,10 +102,14 @@ class Repository
     public function get()
     {
         try {
-            return $this->query->get();
+            $result = $this->query->get();
         } catch (\Exception $e) {
             return ApiException::serverError($e->getMessage());
         }
+        
+        $this->resetQuery();
+    
+        return $result;
     }
 
     /**
@@ -95,10 +120,14 @@ class Repository
     public function count()
     {
         try {
-            return $this->query->count();
+            $result = $this->query->count();
         } catch (\Exception $e) {
             return ApiException::serverError($e->getMessage());
         }
+
+        $this->resetQuery();
+
+        return $result;
     }
 
     /**
@@ -119,6 +148,8 @@ class Repository
             DB::rollback();
             return ApiException::serverError($e->getMessage());
         }
+
+        $this->resetQuery();
 
         return $user;
     }
@@ -152,6 +183,8 @@ class Repository
             return ApiException::serverError($e->getMessage());
         }
 
+        $this->resetQuery();
+
         return $user;
     }
 
@@ -173,7 +206,25 @@ class Repository
             return ApiException::serverError($e->getMessage());
         }
 
+        $this->resetQuery();
+
         return true;
+    }
+
+    /**
+     * Return the generated sql from the query
+     */
+    public function toSql()
+    {
+        return $this->query->toSql();
+    }
+
+    /**
+     * Get query bindings
+     */
+    public function getBindings()
+    {
+        return $this->query->getBindings();
     }
 
     /**
@@ -184,5 +235,15 @@ class Repository
     public function model()
     {
         return $this->model;
+    }
+
+    /**
+     * Reset the model property
+     *
+     * @return void
+     */
+    public function resetQuery()
+    {
+        $this->query = $this->model;
     }
 }
