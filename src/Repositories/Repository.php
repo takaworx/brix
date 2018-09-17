@@ -238,6 +238,16 @@ class Repository
     }
 
     /**
+     * Return query instance
+     *
+     * @return self::query
+     */
+    public function query()
+    {
+        return $this->query;
+    }
+
+    /**
      * Reset the model property
      *
      * @return void
