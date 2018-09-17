@@ -228,6 +228,16 @@ class Repository
     }
 
     /**
+     * Reset the model property
+     *
+     * @return void
+     */
+    public function resetQuery()
+    {
+        $this->query = $this->model;
+    }
+
+    /**
      * Return model instance
      *
      * @return self::model
@@ -248,12 +258,24 @@ class Repository
     }
 
     /**
-     * Reset the model property
+     * Set the new value of model
      *
+     * @return Illuminate\Database\Eloquent\Model
      * @return void
      */
-    public function resetQuery()
+    public function setModel($model)
     {
-        $this->query = $this->model;
+        $this->model = $model;
+    }
+
+    /**
+     * Set the new value of query
+     *
+     * @return Illuminate\Support\Facades\DB
+     * @return void
+     */
+    public function setQuery($query)
+    {
+        $this->query = $query;
     }
 }
