@@ -28,7 +28,7 @@ class Repository
      */
     public function match($field, $value)
     {
-        return $this->model->whereRaw("MATCH($field) AGAINST('?')", [
+        return $this->model->whereRaw("MATCH($field) AGAINST(?)", [
             $value,
         ]);
     }
@@ -42,7 +42,7 @@ class Repository
      */
     public function orMatch($field, $value)
     {
-        return $this->model->orWhereRaw("MATCH($field) AGAINST('?')", [
+        return $this->model->orWhereRaw("MATCH($field) AGAINST(?)", [
             $value,
         ]);
     }
