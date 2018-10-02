@@ -3,12 +3,16 @@
 namespace DummyNamespace;
 
 use DummyModel;
-use Takaworx\Brix\Repositories\Repository;
+use Takaworx\Brix\Traits\RepositoryTrait;
 
-class DummyClass extends Repository
+class DummyClass extends DummyMC
 {
-    public function __construct()
-    {
-        parent::__construct(new DummyMC());
-    }
+    use RepositoryTrait;
+
+    /**
+     * DB table to be used for this repo
+     *
+     * @var string
+     */
+    protected $table = 'TableName';
 }
