@@ -20,6 +20,34 @@ class Repository
     }
 
     /**
+     * Full-text Search
+     *
+     * @param string $field
+     * @param string $attribute
+     * @return self::model
+     */
+    public function match($field, $value)
+    {
+        return $this->model->whereRaw("MATCH($field) AGAINST(?)", [
+            $value,
+        ]);
+    }
+
+    /**
+     * Full-text Search with OR operator
+     *
+     * @param string $field
+     * @param string $attribute
+     * @return self::model
+     */
+    public function orMatch($field, $value)
+    {
+        return $this->model->orWhereRaw("MATCH($field) AGAINST(?)", [
+            $value,
+        ]);
+    }
+
+    /**
      * Get the value of model property
      */
     public function model()
