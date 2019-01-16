@@ -40,7 +40,7 @@ trait AuditTrait
     public function setCreatedBy()
     {
         if (!isset($this->created_by) || is_null($this->created_by)) {
-            $this->created_by = Auth::user()->id;
+            $this->created_by = Auth::user() ? Auth::user()->id : 0;
         }
     }
 
@@ -52,7 +52,7 @@ trait AuditTrait
     public function setUpdatedBy()
     {
         if (!isset($this->updated_by) || is_null($this->updated_by)) {
-            $this->updated_by = Auth::user()->id;
+            $this->updated_by = Auth::check() ? Auth::user()->id : 0;
         }
     }
 
@@ -64,7 +64,7 @@ trait AuditTrait
     public function setDeletedBy()
     {
         if (!isset($this->deleted_by) || is_null($this->deleted_by)) {
-            $this->deleted_by = Auth::user()->id;
+            $this->deleted_by = Auth::check() ? Auth::user()->id : 0;
         }
     }
 
