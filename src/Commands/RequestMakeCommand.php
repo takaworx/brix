@@ -13,7 +13,7 @@ class RequestMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $name = 'make:brequest';
+    protected $name = 'brix:request';
 
     /**
      * The console command description.

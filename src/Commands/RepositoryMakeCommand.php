@@ -13,7 +13,7 @@ class RepositoryMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $name = 'make:repository';
+    protected $name = 'brix:repo';
 
     /**
      * The console command description.
