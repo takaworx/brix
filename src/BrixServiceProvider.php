@@ -13,7 +13,9 @@ class BrixServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->publishes([
+            __DIR__.'/lang/en/brix.php' => resource_path('lang/en/brix.php'),
+        ]);
     }
 
     /**
