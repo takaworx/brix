@@ -2,7 +2,7 @@
 
 namespace Takaworx\Brix\Http\Requests;
 
-use Takaworx\Brix\Entities\ApiResponse;
+use Takaworx\Brix\Helpers\ApiResponse;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -18,7 +18,7 @@ class BaseFormRequest extends FormRequest
     final protected function failedValidation(Validator $validator)
     {
         $errors   = $validator->errors();
-        $response = ApiResponse::error(Response::HTTP_BAD_REQUEST, $errors);
+        $response = ApiResponse::badRequest($errors);
         throw new HttpResponseException($response);
     }
 }
