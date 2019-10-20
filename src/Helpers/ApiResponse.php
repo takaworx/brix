@@ -2,6 +2,8 @@
 
 namespace Takaworx\Brix\Helpers;
 
+use Takaworx\Brix\Exceptions\ApiException;
+
 class ApiResponse
 {
     public static function success($data = null, $message = null)
@@ -74,5 +76,26 @@ class ApiResponse
             'message' => $message,
             'data' => $data
         ], 500);
+    }
+
+    public static function exception(ApiException $e)
+    {
+        switch ($e->getCode()) {
+            case 400:
+                return self::badRequest($e->getData(), $e->getMessage());
+                break;
+            case 401:
+                return self::unauthorized($e->getData(), $e->getMessage());
+                break;
+            case 403:
+                return self::forbidden($e->getData(), $e->getMessage());
+                break;
+            case 404:
+                return self::notFound($e->getData(), $e->getMessage());
+                break;
+            case 500:
+                return self::serverError($e->getData(), $e->getMessage());
+                break;
+        }
     }
 }
