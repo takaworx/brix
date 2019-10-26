@@ -96,7 +96,6 @@ class RepositoryMakeCommand extends GeneratorCommand
         $stub = $this->files->get($this->getStub());
         $stub = $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
         $stub = $this->replaceModel($stub, $this->getModel());
-        $stub = $this->replaceTableName($stub, $this->getModel());
 
         return $stub;
     }
@@ -114,22 +113,6 @@ class RepositoryMakeCommand extends GeneratorCommand
 
         $stub = str_replace('DummyModel', $model, $stub);
         $stub = str_replace('DummyMC', $modelClass, $stub);
-
-        return $stub;
-    }
-
-    /**
-     * Replace the table name of the given stub
-     *
-     * @param string $stub
-     * @param string $model
-     * @return string
-     */
-    protected function replaceTableName($stub, $model)
-    {
-        $tableName = (new $model)->getTable();
-
-        $stub = str_replace('TableName', $tableName, $stub);
 
         return $stub;
     }
